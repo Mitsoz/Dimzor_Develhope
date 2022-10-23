@@ -1,2 +1,13 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+create temp table Prods_Disc_Country as
+SELECT orders.ShipRegion, orders.ShipCountry,
+order_details.ProductID, products.ProductName, order_details.Quantity, order_details.Discount
+FROM Orders
+INNER JOIN (Order_details
+INNER JOIN Products ON order_details.ProductID = products.ProductID)
+ON order_details.OrderID = orders.OrderID
+GROUP BY orders.ShipCountry, products.ProductName
+ORDER BY order_details.ProductID ASC;
+
+select * from products_country
+GROUP BY shipcountry, productname, discount
+ORDER BY productname, discount;
